@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Slop Detector</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+    <header class="page-header">
+        <h1>AI Slop Detector</h1>
+        <p>Analyze text and webpages to estimate whether content may be AI-generated.</p>
+    </header>
+
+    <main class="dashboard-layout">
+
+        <!-- TEXT ANALYSIS SECTION -->
+        <section class="analyze-section">
+            <div class="form-card">
+                <h2>Analyze Text</h2>
+
+                <form action="/analyze" method="POST" id="text-form">
+                    <label for="text">Enter your text:</label>
+
+                    <textarea
+                        name="text"
+                        id="text"
+                        rows="10"
+                        placeholder="Paste your text here..."
+                        required
+                    >{{ text or '' }}</textarea>
+
+                    <div class="button-row">
+                        <button type="submit" id="text-submit">
+                            <span class="button-text">Analyze Text</span>
+                            <span class="button-loading" hidden>Analyzing...</span>
+                        </button>
+                        <button
+                            type="button"
+                            class="clear-button"
+                            onclick="clearSection('text')"
+                        >Clear</button>
+                    </div>
+                </form>
+
+                <!-- TEXT RESULT -->
+                {% if text_result %}
+                <section class="result-card" id="text-result">
+                    <h2>Text Analysis Result</h2>
+
+                    <div class="result-status
+                        {% if 'AI-generated' in text_result %}
+                            ai-result
+                        {% elif 'Human-generated' in text_result %}
+                            human-result
+                        {% else %}
+                            neutral-result
+                        {% endif %}
+                    ">
+                        <h3>{{ text_result }}</h3>
+                    </div>
+
+                    {% if text_score is not none %}
+                    <div class="confidence-section">
+                        <div class="confidence-heading">
+                            <span>Model confidence</span>
+                            <strong>{{ "%.2f"|format(text_score * 100) }}%</strong>
+                        </div>
+
+                        <div class="confidence-track">
+                            <div
+                                class="confidence-fill"
+                                style="width: {{ text_score * 100 }}%;"
+                            ></div>
+                        </div>
+
+                        <p class="result-note">
+                            This percentage represents the model's confidence in its prediction.
+                            It is not the same as factual accuracy and does not prove whether a
+                            human or AI wrote the text. Predictions can be wrong.
+                        </p>
+                    </div>
+                    {% endif %}
+                    
+                </section>
+                {% endif %}
+            </div>
+        </section>
+
+
+        <!-- URL ANALYSIS SECTION -->
+        <section class="analyze-section">
+            <div class="form-card">
+                <h2>Analyze a Webpage</h2>
+
+                <form action="/analyze-url" method="POST" id="url-form">
+                    <label for="url">Enter webpage URL:</label>
+
+                    <input
+                        type="url"
+                        id="url"
+                        name="url"
+                        value="{{ url or '' }}"
+                        placeholder="https://example.com/article"
+                        required
+                    >
+
+                    <div class="button-row">
+                         <button type="submit" id="url-submit">
+                            <span class="button-url">Analyze Webpage</span>
+                            <span class="button-loading" hidden>Analyzing...</span>
+                        </button>
+                        <button
+                            type="button"
+                            class="clear-button"
+                            onclick="clearSection('url')"
+                        >Clear</button>
+                    </div>
+                </form>
+
+                <!-- URL RESULT -->
+                {% if url_result %}
+                <section class="result-card" id="url-result">
+                    <h2>Webpage Analysis Result</h2>
+
+                    <div class="result-status
+                        {% if 'AI-generated' in url_result %}
+                            ai-result
+                        {% elif 'Human-generated' in url_result %}
+                            human-result
+                        {% else %}
+                            neutral-result
+                        {% endif %}
+                    ">
+                        <h3>{{ url_result }}</h3>
+                    </div>
+
+                    {% if url_score is not none %}
+                    <div class="confidence-section">
+                        <div class="confidence-heading">
+                            <span>Model confidence</span>
+                            <strong>{{ "%.2f"|format(url_score * 100) }}%</strong>
+                        </div>
+
+                        <div class="confidence-track">
+                            <div
+                                class="confidence-fill"
+                                style="width: {{ url_score * 100 }}%;"
+                            ></div>
+                        </div>
+
+                        <p class="result-note">
+                            This percentage represents the model's confidence in its prediction.
+                            It is not the same as factual accuracy and does not prove whether a
+                            human or AI wrote the text. Predictions can be wrong.
+                        </p>
+                    </div>
+                    {% endif %}
+
+                </section>
+                {% endif %}
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.getElementById("text-form").addEventListener("submit", function () {
+            const button = document.getElementById("text-submit");
+
+            button.textContent = "Analyzing...";
+
+            button.disabled = true;
+        });
+
+        document.getElementById("url-form").addEventListener("submit", function () {
+            const button = document.getElementById("url-submit");
+
+            button.querySelector(".button-url").hidden = true;
+            button.querySelector(".button-loading").hidden = false;
+            
+            button.disabled = true;
+        });
+
+        function clearSection(section) {
+            if (section === "text") {
+                document.getElementById("text").value = "";
+
+                const result = document.getElementById("text-result");
+                if (result) {
+                    result.remove();
+                }
+            }
+
+            if (section === "url") {
+                document.getElementById("url").value = "";
+
+                const result = document.getElementById("url-result");
+                if (result) {
+                    result.remove();
+                }
+            }
+        }
+    </script>
+</body>
+</html>

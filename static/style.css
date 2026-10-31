@@ -1,0 +1,363 @@
+
+/* 1. Basic page setup */
+
+*{
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 40px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f3f5fb;
+    color: #20243a;
+    line-height: 1.6;
+}
+
+/* 2. Main heading  */
+h1 {
+    max-width: 800px;
+    margin: 0 auto 10px;
+    text-align: center;
+    color: #4338ca;
+    font-size: 36px;
+}
+
+h2{
+    color:#30365c;
+    margin-top: 10px;
+}
+
+/* 3. Forms ans sections */
+form {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 25px;
+    background-color: #ffffff;
+    border: 1px solid #e1e5f0;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(30, 40, 90, 0.06);
+}
+
+/* 4.Text area and URL field */
+textarea,
+input[type="url"] {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #cbd0e0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    background-color: #ffffff;
+    color: #20243a;
+}
+
+textarea{
+    resize: vertical;
+    min-height: 180px;
+}
+
+textarea:focus,
+input[type="url"]:focus{
+    outline: 2px solid #a5b4fc;
+    border-color: #6366f1;
+}
+
+/* 5.Buttons */
+button {
+    padding: 12px 22px;
+    border: none;
+    border-radius:8px;
+    background-color: #4f46e5;
+    color:#ffffff;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover{
+    background-color:  #3730a3;
+}
+
+/* Result and confidence */
+
+body > h2,
+body > p {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body > p {
+    overflow-wrap: anywhere;
+}
+
+hr {
+    max-width: 800px;
+    margin: 30px auto;
+    border: none;
+    border-top: 1px solid #dfe3ef;
+}
+
+/* 7.smaller screens */
+@media (max-width:600px) {
+    body {
+        padding: 25px 12px;
+    }
+    
+    h1{
+        font-size: 28px;
+    }
+}
+
+/*  Main result card */
+.result-card {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 28px;
+    background: #ffffff;
+    border: 1px solid #e1e5f0;
+    border-radius: 16px;
+    box-shadow: 0 6px 22px rgba(30, 40, 90, 0.08);
+}
+
+.result-card > h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Prediction status */
+.result-status {
+    padding: 18px 20px;
+    border-radius: 10px;
+    border-left: 5px solid;
+}
+
+.result-status h3 {
+    margin: 0;
+    font-size: 21px;
+}
+
+.ai-result {
+    background: #fff0f0;
+    border-left-color: #dc4545;
+    color: #a52222;
+}
+
+.human-result {
+    background-color: #eafaf1;
+    border-left-color: #22975a;
+    color: #176b40;
+}
+
+.neutral-result {
+    background-color: #f1f3f9;
+    border-left-color: #7b8195;
+    color: #30365c;
+}
+
+/*  Confidence display */
+.confidence-section {
+    margin-top: 25px;
+}
+
+.confidence-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.confidence-heading strong {
+    font-size: 24px;
+    color: #4338ca;
+}
+
+.confidence-track {
+    width: 100%;
+    height: 12px;
+    overflow: hidden;
+    background: #e8eaf3;
+    border-radius: 20px;
+}
+
+.confidence-fill {
+    height: 100%;
+    background-color: #6558e8;
+    border-radius: 20px;
+    transition: width 0.4s ease;
+}
+
+.result-note {
+    margin-top: 18px;
+    color: #646b7e;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* Page heading */
+.page-header {
+    text-align: center;
+    padding: 20px;
+}
+
+.page-header h1 {
+    margin-bottom: 8px;
+}
+
+/* Two-column layout */
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+    align-items: start;
+}
+
+/* Analysis form cards */
+.form-card {
+    min-width: 0;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #e1e5f0;
+    border-radius: 16px;
+    box-shadow: 0 6px 22px rgba(30, 40, 90, 0.08);
+}
+
+.form-card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Input fields */
+.form-card textarea,
+.form-card input[type="url"] {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 10px;
+    padding: 12px;
+    border: 1px solid #d5d9e5;
+    border-radius: 8px;
+    font: inherit;
+}
+
+.form-card textarea {
+    resize: vertical;
+}
+
+/* Buttons beside each other */
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.button-row button {
+    margin: 0;
+}
+
+/* Clear button */
+.clear-button {
+    background: #ffffff;
+    color: #4338ca;
+    border: 1px solid #6558e8;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.clear-button:hover {
+    background: #f1f0ff;
+}
+
+/* Results inside their own analysis sections */
+.form-card .result-card {
+    max-width: none;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 24px 0 0;
+    padding: 20px;
+}
+
+/* Mobile layout */
+@media (max-width: 760px) {
+    .dashboard-layout {
+        grid-template-columns: 1fr;
+        padding: 0 12px;
+    }
+
+    .form-card {
+        padding: 18px;
+    }
+}
+
+
+/* Improved result card */
+.form-card .result-card{
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-card .result-card:hover {
+    transform: translate(-2px);
+    box-shadow: 0 10px 28px rgba(30, 40, 90 , 0.12);
+}
+
+/* Make prediction results clearer */
+.result-status {
+    display: flex;
+    align-items: center;
+    min-height: 65px;
+    border-radius: 12px;
+    padding: 18px 22px;
+}
+
+.result-status h3 {
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+/* Improve confidence percentage */
+.confidence-heading strong {
+    font-variant-numeric: tabular-nums;
+}
+
+.confidence-track {
+    height: 14px;
+    border: 1px solid #e1e5f0;
+}
+
+/* Improve result disclaimer */
+.result-note {
+    padding: 12px 14px;
+    background: #f7f8fc;
+    border-radius: 8px;
+    border-left: 3px solid #a5b4fc;
+}
+
+/* Make results comfortable on mobile */
+@media (max-width: 600px) {
+    .form-card .result-card {
+        padding: 16px;
+    }
+
+    .result-status {
+        padding: 14px 16px;
+    }
+
+    .result-status h3 {
+        font-size: 18px;
+    }
+
+    .confidence-heading strong {
+        font-size: 21px;
+    }
+}
